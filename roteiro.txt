@@ -1,0 +1,17 @@
+- mais uma vez a criação de basica de um ator
+	- não precisa cria para cada request... Deixa 1 só e o akka se vira	
+
+- quando acaba o pagamento, manda email? mas deixo tudo num ator só?
+	- que o legal é deixar o ator bem pequeno... 
+	- encaixa de algum jeito a variavel de instancia para mostrar que não tem problema de concorrência
+	- falha num ponto só e ainda aumenta a concorrência
+- já temos um monte de coisa e não foi necessário ser o miseravão da concorrência.
+- pode ser que dê algum erro? como faz?
+- estratégia do supervisor...
+	- reiniciar
+	- reinicou 2x e não funcionou manda email
+		- lembrar que ele conta +1 porque a primeira tentativa não conta.
+- se der tempo, dá para aumentar o número de atores sem fazer vc mexer muito no código.. 
+ 	- manda para o router e o router se vira.(tipo o load balancer mesmo)
+ 	- e quantos atores a gente cria? depende do seu pool de thread
+- se der tempo, podemos mostrar o lance da transparência de localização	
