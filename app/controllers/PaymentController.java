@@ -26,7 +26,7 @@ public class PaymentController extends Controller {
 		Payment payment = new Payment(boundForm.get("cardNumber"),
 				new BigDecimal(boundForm.get("amount")),
 				boundForm.get("email"));
-		
+
 		checkoutSupervisor.tell(payment, null);
 		return ok("Sua compra está sendo efetuada");
 	}

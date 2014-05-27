@@ -22,6 +22,8 @@ public class CheckoutActor extends UntypedActor{
 
 	@Override
 	public void onReceive(Object message) throws Exception {
+        System.out.println("recebendo mensagem: " + message);
+        Thread.sleep(3000);
 		Payment payment = (Payment) message;
 		
 		if(payment.getCardNumber().equals("123456")){

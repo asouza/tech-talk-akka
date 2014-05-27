@@ -20,7 +20,7 @@ object Supervisor {
 
   val supervisorStrategy =
     new OurSupervisor(
-      OneForOneStrategy.apply(maxNrOfRetries = 5, withinTimeRange = 1 minute) {
+      OneForOneStrategy.apply(maxNrOfRetries = 2, withinTimeRange = 1 minute) {
       case _: PaymentFailureException => {
         Restart
       }
@@ -31,7 +31,7 @@ object Supervisor {
   class OurSupervisor(val strategy: OneForOneStrategy) extends OneForOneStrategy(strategy.maxNrOfRetries, strategy.withinTimeRange, false)(strategy.decider) {
 	  
 	  override def handleFailure(context: ActorContext, child: ActorRef, cause: Throwable, stats: ChildRestartStats, children: Iterable[ChildRestartStats]): Boolean = {
-			  if(stats.maxNrOfRetriesCount == 5){
+			  if(stats.maxNrOfRetriesCount == strategy.maxNrOfRetries){
 				  mailerActor.tell(new HtmlMail(s"Ator do checkout morreu por conta de ${cause.getMessage()}"), null)
 			  }
 			  super.handleFailure(context, child, cause, stats, children)
